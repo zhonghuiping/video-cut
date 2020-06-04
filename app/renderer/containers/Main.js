@@ -35,13 +35,16 @@ const Main = () => {
     dispatch(actions.file.clear())
   }, [])
 
-  const saveVideo = useCallback((start, end) => {
+  const saveVideo = useCallback((start, end, section, second, duration) => {
     console.debug('Сохранение видео', {
       filePath,
       start,
       end,
+      section,
+      second,
+      duration
     })
-    dispatch(actions.file.save(start, end))
+    dispatch(actions.file.save(start, end, section, second, duration))
   }, [])
 
   if (filePath) {

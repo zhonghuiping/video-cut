@@ -4,9 +4,9 @@ import ffmpeg from 'fluent-ffmpeg'
 
 import api from './api'
 
-ffmpeg.setFfmpegPath(path.resolve(__dirname, '../../assets/ffmpeg.bin/ffmpeg.exe'))
-ffmpeg.setFfprobePath(path.resolve(__dirname, '../../assets/ffmpeg.bin/ffprobe.exe'))
-ffmpeg.setFlvtoolPath(path.resolve(__dirname, '../../assets/ffmpeg.bin/ffplay.exe'))
+// ffmpeg.setFfmpegPath(path.resolve(__dirname, '../../assets/ffmpeg.bin/ffmpeg.exe'))
+// ffmpeg.setFfprobePath(path.resolve(__dirname, '../../assets/ffmpeg.bin/ffprobe.exe'))
+// ffmpeg.setFlvtoolPath(path.resolve(__dirname, '../../assets/ffmpeg.bin/ffplay.exe'))
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 

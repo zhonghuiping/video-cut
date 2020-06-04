@@ -8,6 +8,7 @@ function packWin() {
 
 function packMac() {
   return builder.build({
+    category: 'public.app-category.developer-tools',
     targets: builder.Platform.MAC.createTarget(),
   });
 }

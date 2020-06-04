@@ -44,26 +44,49 @@ const TimePanel = styled.div`
 const Editor = ({ filePath, onClose, onSave }) => {
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
+
+  const [sectionNum, setSectionNum] = useState('')
+  const [secondNum, setSecondNum] = useState('')
+  //const [duration, setDuration] = useState('')
+
+
+
   const videoRef = useRef(null)
+  //const duration = videoRef.duration
+  //console.log(videoRef.duration)
   const close = useCallback(() => onClose(), [onClose])
   const handleChangeStartTime = useCallback((event) => setStartTime(event.target.value), [])
   const handleChangeEndTime = useCallback((event) => setEndTime(event.target.value), [])
 
+  const handleChangeSection = useCallback((event) => setSectionNum(event.target.value), [])
+  const handleChangeSecond = useCallback((event) => setSecondNum(event.target.value), [])
+
+
   const save = useCallback(() => {
     const start = parseInt(startTime, 10)
     const end = parseInt(endTime, 10)
+    const section = parseInt(sectionNum, 10)
+    const second = parseInt(secondNum, 10)
+    console.log(videoRef)
+    const duration = videoRef.current.duration //parseInt(videoRef.duration, 10)
+
+    //const videoRef = useRef(null)
+    //const duration = videoRef.duration
+    console.log('duration')
+    console.log(duration)
+
     if (Number.isNaN(start) || start < 0) {
-      console.error('Число начало видео либо NaN, либо меньше 0', { start, end })
+      console.error('输入时间不合法', { start, end })
       return
     }
 
     if (Number.isNaN(end) || end <= start) {
-      console.error('Число окончания видео либо NaN, либо меньше или равно началу', { start, end })
+      console.error('输入时间不合法，不能大于开始时间', { start, end })
       return
     }
 
-    onSave(start, end)
-  }, [startTime, endTime, onSave])
+    onSave(start, end, section, second, duration)
+  }, [startTime, endTime, sectionNum, secondNum, videoRef, onSave])
 
   const setCurrentTimeStart = useCallback(() => {
     setStartTime(Math.round(videoRef.current.currentTime))
@@ -72,6 +95,10 @@ const Editor = ({ filePath, onClose, onSave }) => {
   const setCurrentTimeEnd = useCallback(() => {
     setEndTime(Math.round(videoRef.current.currentTime))
   }, [videoRef])
+
+  // const setCurrentSection = useCallback(() => {
+  //   setEndTime(Math.round(videoRef.current.currentTime))
+  // }, [videoRef])
 
   return (
     <Container>
@@ -85,6 +112,18 @@ const Editor = ({ filePath, onClose, onSave }) => {
           <Input placeholder="End time" onChange={handleChangeEndTime} value={endTime}/>
           <Button onClick={setCurrentTimeEnd} size="small">Current Time</Button>
         </TimePanel>
+
+        <TimePanel>
+          <Input placeholder="段数" onChange={handleChangeSection} value={sectionNum}/>
+          {/* <Button onClick={setCurrentSection} size="small">Current Time</Button> */}
+        </TimePanel>
+
+        <TimePanel>
+          <Input placeholder="秒数" onChange={handleChangeSecond} value={secondNum}/>
+          {/* <Button onClick={setCurrentTimeEnd} size="small">Current Time</Button> */}
+        </TimePanel>
+
+
         <TimePanel><Button onClick={save}>Save</Button></TimePanel>
       </TimeRegion>
       <CloseButtonRegion>
